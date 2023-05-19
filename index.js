@@ -173,7 +173,7 @@ async function connectToWhatsApp() {
             }
   
           } else {
-            const result = await lanjut(incomingMessages);
+            const result = "APA"//await lanjut(incomingMessages);
             console.log(result);
             await sock.sendMessage(
               senderNumber,
@@ -199,7 +199,7 @@ async function connectToWhatsApp() {
             );
 
           } else {
-            const result = await lanjut(incomingMessages);
+            const result = "APA"//await lanjut(incomingMessages);
             console.log(result);
             await sock.sendMessage(
               senderNumber,
