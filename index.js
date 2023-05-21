@@ -33,7 +33,6 @@ const key = new Keyv({
   })
 })
 
-
 async function chat(kontol) {
   const options = {
     userToken: '1bFYqJ713VYykO1SAg4BW8Nfhi0K2lVy-vl3Qvx3IY56vAohJgFC04f3O5vWD1dzq11NnEWrehCv3Cr7555aVOdGpZtI2iZ5Sq1Gj2q7SiouvIoj2PYo3ccJ_raUPOqXndI72hZS-DbevOkYLOB3SKGfS6hGgYr5U7ydGAoBsshGDPkS4BB6ukyhfcqLhYWE5FJPodG8Z7AhTFSKykjqCsA',
@@ -49,7 +48,6 @@ async function chat(kontol) {
   await key.set("mid", jailbreakResponse.messageId)
   return res.replace(/Sydney/, 'Fana')
 }
-
 
 async function lanjut(kontol) {
   const options = {
@@ -68,9 +66,8 @@ async function lanjut(kontol) {
   return res.replace(/Sydney/, 'Fana')
 }
 
-//Fungsi OpenAI ChatGPT untuk Mendapatkan Respon
+//EXpresss webhook
 const express = require("express")
-
 const server = express()
 
 server.all("/", (req, res) => {
@@ -113,7 +110,6 @@ async function connectToWhatsApp() {
     console.log(messages);
     if (type === "notify" && !messages[0].key.fromMe) {
       try {
-
         //Dapatkan nomer pengirim dan isi pesan
         await sock.readMessages([messages[0].key])
         const senderNumber = messages[0].key.remoteJid;
@@ -131,16 +127,14 @@ async function connectToWhatsApp() {
         //Tampilkan nomer pengirim dan isi pesan
         console.log("Nomer Pengirim:", senderNumber);
         console.log("Isi Pesan:", incomingMessages);
-
         //Tampilkan Status Pesan dari Grup atau Bukan
         //Tampilkan Status Pesan Mengebut Bot atau Tidak
         console.log("Apakah Pesan dari Grup? ", isMessageFromGroup);
         console.log("Apakah Pesan Menyebut Bot? ", isMessageMentionBot);
-
+///////////////////////////////////////////////////////////////////////////////////////////////
         //Kalo misalkan nanya langsung ke Bot / JAPRI
         if (!isMessageFromGroup) {
-
-          //Jika ada yang mengirim pesan mengandung kata 'siapa'
+          
           if (incomingMessages.startsWith('.')) {
             const result = await chat(incomingMessages);
             console.log(result);
