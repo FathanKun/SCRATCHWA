@@ -7,7 +7,7 @@ import * as fs from "fs";
 const require = createRequire(import.meta.url)
 // Menampahkan Dependencies
 const igdown = require('igdown-scrapper');
-
+const ttdl =  require("tiktok-video-downloader");
 const {
   default: makeWASocket,
   DisconnectReason,
@@ -172,7 +172,15 @@ async function connectToWhatsApp() {
               }
             }
   
-          } else {
+          }if (incomingMessages.includes('tiktok')) {
+            let link = await ttdl.getInfo(incomingMessages)
+              await sock.sendMessage(
+              senderNumber,
+              {
+                video: {url:link.video.url.no_wm},
+                gifPlayback:false
+              },{ quoted: messages[0] })
+            } else {
             const result = await lanjut(incomingMessages);
             console.log(result);
             await sock.sendMessage(
@@ -220,7 +228,15 @@ async function connectToWhatsApp() {
               }
             }
   
-          } else {
+          }if (incomingMessages.includes('tiktok')) {
+            let link = await ttdl.getInfo(incomingMessages)
+              await sock.sendMessage(
+              senderNumber,
+              {
+                video: {url:link.video.url.no_wm},
+                gifPlayback:false
+              },{ quoted: messages[0] })
+            } else {
             const result = await lanjut(incomingMessages);
             console.log(result);
             await sock.sendMessage(
