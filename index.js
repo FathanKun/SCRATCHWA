@@ -126,7 +126,7 @@ async function connectToWhatsApp() {
         //Dapatkan Info Pesan dari Grup atau Bukan 
         //Dan Pesan Menyebut bot atau Tidak
         const isMessageFromGroup = senderNumber.includes("@g.us");
-        const isMessageMentionBot = incomingMessages.includes("@6283149440808");
+        const isMessageMentionBot = incomingMessages.includes("@6287844113305");
 
         //Tampilkan nomer pengirim dan isi pesan
         console.log("Nomer Pengirim:", senderNumber);
@@ -151,16 +151,16 @@ async function connectToWhatsApp() {
               2000
             )
           }
-          if (incomingMessages.startsWith('Ig')) {
+          if (incomingMessages.includes('instagram')) {
             let msg = incomingMessages.substring(0, incomingMessages.indexOf('?'))
-            let link = await igdown(incomingMessages.replace("Ig ",""))
+            let link = await igdown(incomingMessages)
             try {
               await sock.sendMessage(
               senderNumber,
               {
                 video: {url:link.url[0].url},
                 gifPlayback:false
-              })
+              },{ quoted: messages[0] })
             } catch (err){
                for (link of link) {
               await sock.sendMessage(
@@ -168,12 +168,12 @@ async function connectToWhatsApp() {
               {
                 video: {url:link.url[0].url},
                 gifPlayback:false
-              })
+              },{ quoted: messages[0] })
               }
             }
   
           } else {
-            const result = "APA"//await lanjut(incomingMessages);
+            const result = await lanjut(incomingMessages);
             console.log(result);
             await sock.sendMessage(
               senderNumber,
@@ -187,6 +187,7 @@ async function connectToWhatsApp() {
 
         //Kalo misalkan nanya via Group
         if (isMessageFromGroup && isMessageMentionBot) {
+            incomingMessages = incomingMessages.replace(/@\w+\s?/g,"").trim()
           //Jika ada yang mengirim pesan mengandung kata 'siapa'
           if (incomingMessages.startsWith('.')) {
             const result = await chat(incomingMessages);
@@ -198,8 +199,29 @@ async function connectToWhatsApp() {
               2000
             );
 
+          }if (incomingMessages.includes('instagram')) {
+            let msg = incomingMessages.substring(0, incomingMessages.indexOf('?'))
+            let link = await igdown(incomingMessages)
+            try {
+              await sock.sendMessage(
+              senderNumber,
+              {
+                video: {url:link.url[0].url},
+                gifPlayback:false
+              },{ quoted: messages[0] })
+            } catch (err){
+               for (link of link) {
+              await sock.sendMessage(
+              senderNumber,
+              {
+                video: {url:link.url[0].url},
+                gifPlayback:false
+              },{ quoted: messages[0] })
+              }
+            }
+  
           } else {
-            const result = "APA"//await lanjut(incomingMessages);
+            const result = await lanjut(incomingMessages);
             console.log(result);
             await sock.sendMessage(
               senderNumber,
