@@ -192,7 +192,9 @@ async function connectToWhatsApp() {
 
           }
         }
-
+        
+        //////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        
         //Kalo misalkan nanya via Group
         if (isMessageFromGroup && isMessageMentionBot) {
             incomingMessages = incomingMessages.replace(/@\w+\s?/g,"").trim()
